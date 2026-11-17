@@ -11,6 +11,10 @@
 // Serve it locally with `node serve.ts`, then open http://localhost:8080.
 // Outside the grader's container, MAKEFUN_OUTPUT_DIR stands in for /output:
 //   mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
+//
+// This entry is Neon Harbor: Vice Run — an original open-world crime game set
+// in the fictional port city of Port Azura (see game/src/main.js). The hand-in
+// below is the starter's plumbing, kept as it was handed out.
 
 import { cpSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';

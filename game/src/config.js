@@ -1,61 +1,61 @@
-// Every tuning number and colour in one place. The playfield is a fixed 1280x720 logical area;
-// the renderer scales it to the window, so no rule below depends on the screen size.
+// Neon Harbor: Vice Run — central tuning and world constants.
+// Everything in Port Azura is original: the city, its people, its cars.
 
-export const FIELD = { width: 1280, height: 720, groundY: 664 };
-
-/** The simulation's fixed step, in seconds: 60 updates a second whatever the display's rate. */
-export const STEP = 1 / 60;
+export const WORLD = {
+  size: 3360,            // the city is a square, this many pixels across
+  roadSpacing: 420,      // distance between road centrelines
+  roadWidth: 104,        // asphalt width
+  sidewalk: 16,          // pavement rim around each block
+  waterLine: 2950,       // south of this y the harbour water begins
+  beachLine: 2890,       // sand strip between the last street and the water
+};
 
 export const PLAYER = {
-  width: 72,
-  height: 24,
-  speed: 560,
-  invulnerable: 1.5,
+  radius: 11,
+  walkSpeed: 148,
+  sprintSpeed: 238,
+  health: 100,
+  punchRange: 30,
+  punchDamage: 34,
 };
 
-export const LIVES = 3;
-
-export const BLOCK = {
-  minWidth: 40,
-  maxWidth: 110,
-  height: 36,
-  speed: 240,
-  speedPerLevel: 30,
-  speedJitter: 90,
-  interval: 0.55,
-  intervalScale: 0.88,
-  minInterval: 0.14,
-  dodgePoints: 1,
+export const WANTED = {
+  maxStars: 5,
+  hideSecondsToCool: 9,  // stay unseen this long and one star fades
+  bustSeconds: 2.4,      // police this close, this long, and you are busted
+  bustRange: 64,
 };
 
-export const COIN = {
-  size: 24,
-  speed: 190,
-  speedPerLevel: 14,
-  interval: 1.4,
-  intervalJitter: 0.8,
-  points: 10,
+// Civilian traffic and parked-car liveries, all fictional marques.
+export const CAR_MODELS = [
+  { name: 'Alder Comet',    kind: 'coupe',   topSpeed: 342, accel: 210, grip: 3.4, colours: ['#c8402e', '#e8b13a', '#3f7fbf', '#d8d8dc'] },
+  { name: 'Bravo Family',   kind: 'sedan',   topSpeed: 288, accel: 168, grip: 3.0, colours: ['#7a8894', '#42506b', '#8c2f39', '#2e4f43'] },
+  { name: 'Cuda Pickup',    kind: 'pickup',  topSpeed: 262, accel: 158, grip: 2.7, colours: ['#b8622d', '#5d6e46', '#37424e', '#946b54'] },
+  { name: 'Duna Hatch',     kind: 'hatch',   topSpeed: 252, accel: 172, grip: 3.2, colours: ['#4fa3a5', '#c9c25e', '#a55ba0', '#d9d9d9'] },
+  { name: 'Estrella Van',   kind: 'van',     topSpeed: 232, accel: 138, grip: 2.5, colours: ['#e3e0d8', '#6b7f9e', '#7d7466', '#546e5a'] },
+  { name: 'Falco Roadster', kind: 'sport',   topSpeed: 398, accel: 252, grip: 3.8, colours: ['#e0483e', '#f2c230', '#22262e', '#7e3ff2'] },
+];
+
+export const POLICE_MODEL = { name: 'Interceptor', kind: 'police', topSpeed: 356, accel: 224, grip: 3.6 };
+
+// How many police cars hunt at each wanted level.
+export const POLICE_BY_STARS = [0, 1, 2, 3, 5, 7];
+
+export const WEAPONS = {
+  fists:  { name: 'Fists',        damage: 34, range: PLAYER.punchRange, cooldown: 0.34, ammo: Infinity },
+  pistol: { name: 'Harbor Hawk',  damage: 46, range: 460, cooldown: 0.24, ammo: 12 },
 };
 
-/** Seconds of play per level, and the last level: speeds and spawn rates stop growing there. */
-export const LEVEL = { seconds: 12, max: 12 };
-
-/** How many falling things can exist at once; the pool is allocated once, at boot. */
-export const POOL_SIZE = 64;
-
-export const PALETTE = {
-  backdrop: '#11141b',
-  sky: '#1b1f2a',
-  ground: '#2a3040',
-  player: '#4fc3f7',
-  block: '#e5534b',
-  coin: '#f2c94c',
-  panel: '#252b38',
-  text: '#eef1f5',
-  muted: '#8b93a3',
+export const COLOURS = {
+  asphalt: '#33373d',
+  asphaltEdge: '#2b2f34',
+  laneMark: '#d8c95c',
+  sidewalk: '#9aa0a3',
+  grass: '#4d7c4f',
+  sand: '#d9bd7f',
+  water: '#1d5f7a',
+  waterDeep: '#174c63',
+  roofShadow: 'rgba(0,0,0,0.25)',
 };
 
-export const FONT = 'system-ui, -apple-system, "Segoe UI", sans-serif';
-
-/** Where the best score is kept between visits (this browser only). */
-export const BEST_KEY = 'block-dodger.best';
+export const SAVE_KEY = 'neon-harbor-vice-run-v1';
