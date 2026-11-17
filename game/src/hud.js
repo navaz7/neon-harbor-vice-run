@@ -97,16 +97,20 @@ export function drawHud(ctx, state, w, h) {
   if (state.objective) {
     const label = state.objective.label;
     ctx.font = 'bold 16px system-ui, sans-serif';
-    const tw = ctx.measureText(label).width + 90;
+    const labelW = ctx.measureText(label).width;
+    const distText = state.objective.dist != null ? Math.round(state.objective.dist) + 'm' : '';
+    ctx.font = 'bold 14px system-ui, sans-serif';
+    const distW = distText ? ctx.measureText(distText).width + 14 : 0;
+    const tw = labelW + distW + 36;
     panel(ctx, (w - tw) / 2, 14, tw, 40, 0.62);
     ctx.fillStyle = '#ffd23e';
-    ctx.textAlign = 'center';
-    ctx.fillText(label, w / 2 - 14, 40);
-    if (state.objective.dist != null) {
+    ctx.font = 'bold 16px system-ui, sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText(label, (w - tw) / 2 + 18, 40);
+    if (distText) {
       ctx.fillStyle = '#ffffff';
       ctx.font = 'bold 14px system-ui, sans-serif';
-      ctx.textAlign = 'left';
-      ctx.fillText(Math.round(state.objective.dist) + 'm', (w + tw) / 2 - 58, 40);
+      ctx.fillText(distText, (w - tw) / 2 + 18 + labelW + 14, 40);
     }
     if (state.timeLeft != null) {
       ctx.fillStyle = state.timeLeft < 20 ? '#ff5040' : '#ffffff';

@@ -830,7 +830,6 @@ function drawWorld() {
   ctx.restore();
 
   // Dusk/night tint.
-  const night = nightAmount();
   if (night > 0.02) {
     ctx.fillStyle = `rgba(10, 14, 44, ${0.34 * night})`;
     ctx.fillRect(0, 0, w, h);
@@ -967,12 +966,14 @@ function poseShot(name) {
     car.model = { name: 'Falco Roadster', kind: 'sport', topSpeed: 398, accel: 252, grip: 3.8, colours: ['#e0483e'] };
     car.colour = '#e0483e';
     state.cars.push(car);
+    state.cars = state.cars.filter(c => c === car || c.role === 'parked' || distance(c.x, c.y, p.x, p.y) > 520);
     enterCar(car);
-    car.speed = 240;
+    state.toasts.length = 0; // keep the frame clean for the cover shot
+    car.speed = 235;
     state.heat = 3;
     state.lastCrimeAt = state.time;
     spawnPolice(); spawnPolice(); spawnPolice();
-    for (const cop of state.police) { cop.x = p.x - 190 - rng() * 90; cop.y = p.y + (rng() - 0.5) * 130; cop.angle = 0; cop.speed = 210; }
+    for (const cop of state.police) { cop.x = p.x - 120 - rng() * 50; cop.y = p.y + (rng() - 0.5) * 80; cop.angle = 0; cop.speed = 215; }
     startMission(storyMissions[1]);
     nextStep(); // pose the delivery leg, crate already aboard
     return;
